@@ -19,7 +19,7 @@ jobs:
           go-version: '1.23.0'
 
       - name: Run tests
-        run: go test -cover ./...
+        run: go test ./... -cover
 
   style:
     name: Style
@@ -34,12 +34,5 @@ jobs:
         with:
           go-version: '1.23.0'
 
-      - name: Run test formatting
-        run: |
-          go fmt ./...
-          if [ $? -ne 0 ]; then
-            echo "go fmt failed"
-            exit 1
-          else
-            echo "Formatting check passed."
-          fi
+      - name: Check formatting
+        run: test -z $(go fmt ./...)
